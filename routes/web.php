@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,3 +18,8 @@ Route::get('/', function () {
 });
 
 Route::get('/user', 'UserController@index');
+
+Auth::routes();
+Route::post('/upload', 'UserController@uploadAvatar');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
