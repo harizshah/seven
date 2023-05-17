@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Storage;
 
 class User extends Authenticatable
 {
@@ -45,12 +47,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function setPasswordAttribute($password){
-        $this->attributes['password']=bcrypt($password);
+    public static function uploadAvatar($image)
+    {
+        $filename = $image->getClientOriginalName();
+        (new self())->deleteOldImage();
+        $image->storeAs('images', $filename, 'public');
+        auth()->user()->update(['avatar' => $filename]);
     }
 
-    public function getNameAttribute($name){
-     return 'My name is:'. ucfirst($name);
+    protected function deleteOldImage()
+    {
+        if ($this->avatar) {
+            Storage::delete('/public/images/' . $this->avatar);
+        }
     }
 
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
+    public function getNameAttribute($name)
+    {
+        return 'My name is: ' . ucfirst($name);
+    }
 }
