@@ -39,11 +39,19 @@ class TodoController extends Controller
 //            'title' => 'required|max:255',
 //        ]);
         Todo::create($request->all());
+        //UPLOADING IMAGE
         return redirect()->back()->with('message','Todo Created Succesfully');
     }
 
     public function edit(Todo $todo)
     {
         return view('todos.edit',compact('todo'));
+    }
+
+    public function update(TodoCreateRequest $request,Todo $todo)
+    {
+        //update todo
+        $todo->update(['title' => $request->title]);
+        return redirect(route('todo.index'))->with('message','Updated!');
     }
 }
