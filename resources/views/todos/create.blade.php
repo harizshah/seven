@@ -25,11 +25,13 @@
                 <h2 class="text-lg  pb-4">Add steps for task</h2>
                     <span class="fas fa-plus px-2 py-1 cursor-pointer"/>
             </div>
+
             <input type="text" name="step" class="py-2 px-2 border rounded" placeholder="Describe Step"/>
         </div>
         <div class="py-1">
             <input type="submit" name="Create" class="p-2 border rounded" />
         </div>
     </form>
+    <livewire:counter />
 @endsection
 
