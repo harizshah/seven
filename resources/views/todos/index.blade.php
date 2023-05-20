@@ -20,7 +20,7 @@
                     {{$todo->title}}
                 </p>
                 @else
-                    <p>{{$todo->title}}</p>
+                    <a class="cursor-pointer" href="{{route('todo.show',$todo->id)}}">{{$todo->title}}</a>
                 @endif
 
                 <div>
