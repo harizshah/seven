@@ -17,7 +17,6 @@ class TodoController extends Controller
 
     public function index()
     {
-        dd($request->all());
         $todos = auth()->user()->todos->sortBy('completed');
         return view('todos.index',compact('todos'));
     }
@@ -50,7 +49,12 @@ class TodoController extends Controller
 //            'title' => 'required|max:255',
 //        ]);
 //        auth()->user()->todos()->create($request->all());
-        auth()->user()->todos()->create($request->all());
+        $todo = auth()->user()->todos()->create($request->all());
+        if($request->step){
+            foreach ($request->step as $step){
+                $todo->steps()->create(['name' => $step]);
+            }
+        }
         //UPLOADING IMAGE
         return redirect(route('todo.index'))->back()->with('message','Todo Created Succesfully');
     }

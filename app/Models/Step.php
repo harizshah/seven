@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Step extends Model
 {
-    use HasFactory;
+    protected $fillable = ['name','todo_id'];
 }
