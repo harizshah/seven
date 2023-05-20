@@ -44,9 +44,7 @@ class TodoController extends Controller
 //            'title' => 'required|max:255',
 //        ]);
 //        auth()->user()->todos()->create($request->all());
-        $userId = auth()->id();
-        $request['user_id'] = $userId;
-        Todo::create($request->all());
+        auth()->user()->todos()->create($request->all());
         //UPLOADING IMAGE
         return redirect(route('todo.index'))->back()->with('message','Todo Created Succesfully');
     }
