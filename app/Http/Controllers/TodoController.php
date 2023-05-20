@@ -6,13 +6,18 @@ use App\Http\Requests\TodoCreateRequest;
 use Illuminate\Http\Request;
 use App\Models\Todo;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Collection;
 
 class TodoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index');
+    }
+
     public function index()
     {
-
-        $todos = Todo::orderBy('completed')->get();
+        $todos = auth()->user()->todos->sortBy('completed');
         return view('todos.index',compact('todos'));
     }
 
@@ -38,6 +43,9 @@ class TodoController extends Controller
 //        $request->validate([
 //            'title' => 'required|max:255',
 //        ]);
+//        auth()->user()->todos()->create($request->all());
+        $userId = auth()->id();
+        $request['user_id'] = $userId;
         Todo::create($request->all());
         //UPLOADING IMAGE
         return redirect()->back()->with('message','Todo Created Succesfully');

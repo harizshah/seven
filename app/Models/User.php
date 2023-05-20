@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Storage;
+use Illuminate\Database\Eloquent\Collection;
 
 class User extends Authenticatable
 {
@@ -62,13 +63,18 @@ class User extends Authenticatable
         }
     }
 
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = bcrypt($password);
-    }
+//    public function setPasswordAttribute($password)
+//    {
+//        $this->attributes['password'] = bcrypt($password);
+//    }
+//
+//    public function getNameAttribute($name)
+//    {
+//        return 'My name is: ' . ucfirst($name);
+//    }
 
-    public function getNameAttribute($name)
+    public function todos()
     {
-        return 'My name is: ' . ucfirst($name);
+        return $this->hasMany(Todo::class);
     }
 }
