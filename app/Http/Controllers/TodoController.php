@@ -48,7 +48,7 @@ class TodoController extends Controller
         $request['user_id'] = $userId;
         Todo::create($request->all());
         //UPLOADING IMAGE
-        return redirect()->back()->with('message','Todo Created Succesfully');
+        return redirect(route('todo.index'))->back()->with('message','Todo Created Succesfully');
     }
 
     public function edit(Todo $todo)
