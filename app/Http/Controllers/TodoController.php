@@ -56,7 +56,8 @@ class TodoController extends Controller
             }
         }
         //UPLOADING IMAGE
-        return redirect(route('todo.index'))->back()->with('message','Todo Created Succesfully');
+        return redirect(route("todo.index"))->with('message', 'Todo Created Successfully');
+
     }
 
     public function edit(Todo $todo)
