@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Models\Step;
 
 class EditStep extends Component
 {
@@ -20,6 +21,10 @@ class EditStep extends Component
 
     public function remove($index)
     {
+        $step = $this->steps[$index];
+        if(isset($step['id'])){
+            Step::find($step['id'])->delete();
+        }
         unset($this->steps[$index]);
     }
 

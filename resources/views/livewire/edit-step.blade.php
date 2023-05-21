@@ -5,10 +5,17 @@
     </div>
 
     @foreach($steps as $step)
-        <div class="flex justify-center py-2" wire:key="{{$loop->index}}">
-            <input type="text" name="step[]" class="py-1 px-2 border rounded"
-                   placeholder="{{'Describe Step'.($loop->index+1)}}" value="{{$step['name']}}"/>
-            <span class="fas fa-times text-red-400 p-2" wire:click="remove({{$loop->index}})" />
+{{--        <div class="flex justify-center py-2" wire:key="{{$loop->index}}">--}}
+{{--            <input type="text" name="stepName[]" class="py-1 px-2 border rounded"--}}
+{{--                   placeholder="{{'Describe Step '.($loop->index+1)}}" value="{{$step['name']}}" />--}}
+{{--            <input type="hidden" name="stepId[]" value="{{$step['id']}}" />--}}
+{{--            <span class="fas fa-times text-red-400 p-2" wire:click="remove({{$loop->index}})" />--}}
+{{--        </div>--}}
+        <div class="flex justify-center py-2" wire:key="{{ $loop->index }}">
+            <input type="text" name="stepName[]" class="py-1 px-2 border rounded"
+                   placeholder="{{ 'Describe Step'. ($loop->index + 1) }}" value="{{ isset($step['name']) ? $step['name'] : '' }}" />
+            <input type="hidden" name="stepId[]" value="{{ isset($step['id']) ? $step['id'] : '' }}" />
+            <span class="fas fa-times text-red-400 p-2" wire:click="remove({{ $loop->index }})" />
         </div>
 
     @endforeach
